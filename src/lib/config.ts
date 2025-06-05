@@ -30,10 +30,7 @@ export const config = {
     bio: "欢迎来到我的主页，会在这里分享一些最近在学习/感兴趣的知识",
   },
   social: {
-    github: "https://github.com/GabC2003",
-    xiaohongshu: "https://www.xiaohongshu.com/user/profile/xxx",
-    wechat: "https://storage.xxx.com/images/wechat-official-account.png",
-    buyMeACoffee: "https://www.buymeacoffee.com/xxx",
+    github: "https://github.com/GabC2003"
   },
   giscus: {
     repo: "guangzhengli/hugo-ladder-exampleSite",
