@@ -1,9 +1,9 @@
 export const config = {
   site: {
-    title: "Nextjs Blog Template",
-    name: "Nextjs Blog Template",
-    description: "Nextjs Blog Template",
-    keywords: ["Nextjs Blog Template", "AI", "Full Stack Developer"],
+    title: "Gabriel's Blog",
+    name: "Gabriel's Blog",
+    description: "Gabriel's Blog",
+    keywords: ["Gabriel's Blog", "AI", "Full Stack Developer"],
     url: "https://xxx.com",
     baseUrl: "https://xxx.com",
     image: "https://xxx.com/og-image.png",
@@ -15,7 +15,7 @@ export const config = {
     },
     manifest: "/site.webmanifest",
     rss: {
-      title: "Nextjs Blog Template",
+      title: "Gabriel's Blog",
       description: "Thoughts on Full-stack development, AI",
       feedLinks: {
         rss2: "/rss.xml",
@@ -25,13 +25,12 @@ export const config = {
     },
   },
   author: {
-    name: "Your Name",
-    email: "your.email@example.com",
-    bio: "这是一个 Nextjs 博客模板",
+    name: "Gabriel",
+    email: "18961704591@163.com",
+    bio: "欢迎来到我的主页，会在这里分享一些最近在学习/感兴趣的知识",
   },
   social: {
-    github: "https://github.com/xxx",
-    x: "https://x.com/xxx",
+    github: "https://github.com/GabC2003",
     xiaohongshu: "https://www.xiaohongshu.com/user/profile/xxx",
     wechat: "https://storage.xxx.com/images/wechat-official-account.png",
     buyMeACoffee: "https://www.buymeacoffee.com/xxx",
