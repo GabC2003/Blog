@@ -7,12 +7,12 @@ summary: "分析Notion的技术架构演进过程，从单一数据库到处理2
 ---
 
 ## Notion技术栈初步分析
-> <font style="color:rgb(51, 61, 66);background-color:rgb(250, 250, 250);">Notion use React, TypeScript, Node.js, Postgres, Docker.</font>  
-<font style="color:rgb(51, 61, 66);background-color:rgb(250, 250, 250);">I believe the web application is running in Next.js since in browser console you can see some _next tags which is used in Next.js applications</font>  
-<font style="color:rgb(51, 61, 66);background-color:rgb(250, 250, 250);">The mobile app uses React native.</font>
+> Notion use React, TypeScript, Node.js, Postgres, Docker.  
+I believe the web application is running in Next.js since in browser console you can see some _next tags which is used in Next.js applications  
+The mobile app uses React native.
 >
 
-## <font style="color:rgb(51, 61, 66);background-color:rgb(250, 250, 250);">架构演进进程</font>
+## 架构演进进程
 ### 2021-单个Postgres数据库
 当用户/文档数量上升后，这显然会出现问题，一旦单个数据库宕机，所有用户都将受到影响（Notion的notes都是在线呈现的，没有离线功能）
 
