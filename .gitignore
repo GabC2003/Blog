@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 .content-collections
+
+# Blog images migrated to Cloudinary
+/public/images/blog/

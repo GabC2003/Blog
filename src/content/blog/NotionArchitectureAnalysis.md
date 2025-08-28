@@ -19,12 +19,12 @@ The mobile app uses React native.
 ### Sharding
 为了应对上述出现的问题，Notion采用了Sharding，即分片策略
 
-![Notion分片架构演进图](/images/blog/notion-sharding-architecture.png)
+![Notion分片架构演进图](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382055/blog_images/notion-sharding-architecture.png)
 
 Notion团队将1个数据库拆分为了32个数据库，每个数据库有15分分片
 
 #### Sharding具体是怎么做的？
-![Notion双重写入实现流程](/images/blog/notion-dual-write-process.png)
+![Notion双重写入实现流程](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382057/blog_images/notion-dual-write-process.png)
 
 就已知的信息来看，其中一种方式是双重写入（Dual write）
 
@@ -41,18 +41,18 @@ Notion团队利用了96个cpu，在三天的时间里完成了这一过程
 数据变更（如插入、更新、删除）通过 Write-Ahead Logging（WAL）记录，为后续的增量数据捕获提供基础。
 
 ### Data Lake的引入
-![Notion数据湖架构演进](/images/blog/notion-data-lake-evolution.png)
+![Notion数据湖架构演进](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382060/blog_images/notion-data-lake-evolution.png)
 
 起初Notion使用Snowflake作为data lake，但data lake并不擅长更新操作（试想一下，在写notion文档时，实时会有很多数据库的Update操作，当用户和文档数量呈指数级别上升时，Snowflake显得效率不足）
 
 #### Custom Data Lake&System structure
 Notion在当时的目标
 
-![Notion架构设计目标](/images/blog/notion-goals-diagram.png)
+![Notion架构设计目标](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382061/blog_images/notion-goals-diagram.png)
 
 最终选用的基建
 
-![Notion最终技术架构图](/images/blog/notion-final-architecture.png)
+![Notion最终技术架构图](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382064/blog_images/notion-final-architecture.png)
 
 ##### 消息队列
 + Kafka 作为分布式消息队列，接收 Debezium 捕获的 PostgreSQL 变更事件，处理高吞吐量的数据流（每秒数十 MB 的行变更）。

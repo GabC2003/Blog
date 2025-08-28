@@ -19,7 +19,7 @@ summary: "浅要分析MCP"
 
 **Function calling**是大模型与外部工具/程序交互的一种能力。
 
-![Function Calling工作流程图](/images/blog/function-calling-workflow.png)
+![Function Calling工作流程图](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382046/blog_images/function-calling-workflow.png)
 
 工作流程（以天气预测为例）
 
@@ -51,13 +51,13 @@ MCP统一了Function Calling的运行规范：
 + 统一名称：大模型运行环境被称为**MCP Client**，外部的函数运行环境称作**MCP Server**
 + 统一了MCP客户端和服务器的运行规范，并且要求客户端和服务器之间按照某个既定的提示词模板进行通信
 
-![MCP架构图](/images/blog/mcp-architecture.png)
+![MCP架构图](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382047/blog_images/mcp-architecture.png)
 
 使用MCP的好处在于可以避免外部函数重复编写，也不需要在函数之间写额外的glue code。通用的需求只需要开发一个MCP Server即可，开发者无需关心Host和Client的细节，只需专注开发对应的服务端
 
-![MCP Server开发流程图](/images/blog/mcp-server-development.png)
+![MCP Server开发流程图](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382050/blog_images/mcp-server-development.png)
 
-![MCP工作原理示意图](/images/blog/mcp-workflow-diagram.png)
+![MCP工作原理示意图](https://res.cloudinary.com/dbrbdlmsx/image/upload/v1756382052/blog_images/mcp-workflow-diagram.png)
 
 
 
