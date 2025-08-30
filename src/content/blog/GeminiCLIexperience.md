@@ -123,7 +123,6 @@ memory show
   - Location: .gemini/settings.json within your project’s root directory.__对于这个项目生效，层级高过用户设置__
 - System settings
   - Location: /etc/gemini-cli/settings.json (Linux), C:\ProgramData\gemini-cli\settings.json (Windows) or /Library/Application Support/GeminiCli/settings.json (macOS). The path can be overridden using the GEMINI_CLI_SYSTEM_SETTINGS_PATH environment variable.__最高等级__
-  The .gemini directory in your project
 
 ## .gemini
 除了Project settings之外，.gemini文件夹起到了包含其他项目层级上与GeminiCLI相关的操作，如
