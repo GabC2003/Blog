@@ -4,13 +4,17 @@ from glob import glob
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # --- CONFIGURATION ---
-# Credentials provided by the user.
+# Credentials load from environment variables.
 cloudinary.config(
-  cloud_name = "dbrbdlmsx",
-  api_key = "794665369471293",
-  api_secret = "mZuFgE3nGpxub9QMHgEWoO4EfUM",
+  cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"),
+  api_key = os.environ.get("CLOUDINARY_API_KEY"),
+  api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
   secure = True
 )
 
