@@ -1,4 +1,12 @@
-# 分布式共识算法与Raft
+---
+title: 分布式共识算法与Raft
+date: 2025-10-15
+updated: 2025-10-15
+keywords: ["Distributed System","Raft"]
+featured: true
+summary: "分布式系统学习分享"
+---
+
 
 ---
 
