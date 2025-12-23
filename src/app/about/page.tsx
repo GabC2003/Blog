@@ -63,11 +63,11 @@ export default function AboutPage() {
                         <div className="relative pl-6 border-l-2 border-blue-500">
                             <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-500 border-4 border-white shadow-sm" />
                             <p className="font-bold text-slate-900 text-lg">Chinese University of Hong Kong</p>
-                            <p className="text-slate-600">Master's Degree • 2025 - 2026</p>
+                            <p className="text-slate-600">Master&apos;s Degree • 2025 - 2026</p>
                         </div>
                         <div className="relative pl-6 border-l-2 border-slate-200">
                             <p className="font-bold text-slate-800 text-lg">Harbin Institute of Technology, Shenzhen</p>
-                            <p className="text-slate-500">Bachelor's Degree • 2021 - 2025</p>
+                            <p className="text-slate-500">Bachelor&apos;s Degree • 2021 - 2025</p>
                         </div>
                     </div>
                 </section>
