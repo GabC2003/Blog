@@ -39,11 +39,15 @@ export function NavDesktopMenu() {
                 </NavigationMenuContent>
               </>
             ) : (
-              <Link href={item.href ?? ""} title={item.title} legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink asChild>
+                <Link
+                  href={item.href ?? ""}
+                  title={item.title}
+                  className={navigationMenuTriggerStyle()}
+                >
                   {item.title}
-                </NavigationMenuLink>
-              </Link>
+                </Link>
+              </NavigationMenuLink>
             )}
           </NavigationMenuItem>
         ))}
