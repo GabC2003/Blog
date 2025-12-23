@@ -26,7 +26,7 @@ export const config = {
   },
   author: {
     name: "Gabriel",
-    email: "18961704591@163.com",
+    email: "gabrielchen0310@gmail.com",
     bio: "欢迎来到我的主页，会在这里分享一些最近在学习/感兴趣的知识",
   },
   social: {
@@ -39,9 +39,13 @@ export const config = {
   },
   navigation: {
     main: [
-      { 
-        title: "文章", 
+      {
+        title: "文章",
         href: "/blog",
+      },
+      {
+        title: "关于",
+        href: "/about",
       },
     ],
   },

@@ -5,14 +5,15 @@ from glob import glob
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from dotenv import load_dotenv
 
 def main():
     """Main function to run the migration process."""
-    if len(sys.argv) < 2:
-        print("Usage: python migrate_runner.py <regex_pattern>")
-        sys.exit(1)
-
-    regex_pattern = sys.argv[1]
+    # Use provided regex or default to matching markdown images in the 'blog/' folder
+    regex_pattern = sys.argv[1] if len(sys.argv) > 1 else r"!\[(.*?)\]\((blog/.*?\.png)\)"
+    
+    load_dotenv() # Load variables from .env
+    
     try:
         image_regex = re.compile(regex_pattern)
     except re.error as e:
@@ -21,12 +22,12 @@ def main():
 
     # --- CONFIGURATION ---
     cloudinary.config(
-      cloud_name = "dbrbdlmsx",
-      api_key = "794665369471293",
-      api_secret = "mZuFgE3nGpxub9QMHgEWoO4EfUM",
+      cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"),
+      api_key = os.getenv("CLOUDINARY_API_KEY"),
+      api_secret = os.getenv("CLOUDINARY_API_SECRET"),
       secure = True
     )
-    cloudinary_folder = "blog_images"
+    cloudinary_folder = os.getenv("CLOUDINARY_FOLDER", "blog_images")
 
     # --- SCRIPT CONSTANTS ---
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))

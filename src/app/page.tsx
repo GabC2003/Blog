@@ -27,7 +27,7 @@ export default function Home() {
       <div className="mb-16 space-y-4">
         <h1 className="text-4xl font-bold">{config.site.title}</h1>
         <p className="text-md text-gray-600">{config.author.bio}</p>
-        
+
         {/* 社交链接 - 仅当有链接时才显示 */}
         {socialLinks.length > 0 && (
           <div className="flex space-x-2 text-gray-600">
@@ -47,18 +47,32 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-8">推荐阅读</h2>
         <div className="space-y-8">
           {blogs.map((blog: any) => (
-            <article key={blog.slug} className="">
+            <article key={blog.slug} className="group">
               <Link href={`/blog/${blog.slug}`}>
-                <div className="flex flex-col space-y-2">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold underline underline-offset-4">
-                      {blog.title}
-                    </h2>
-                    <span className="text-sm text-gray-500">
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="space-y-1">
+                      <h2 className="text-xl font-bold group-hover:text-blue-600 transition-colors underline underline-offset-4 decoration-current">
+                        {blog.title}
+                      </h2>
+                      {blog.keywords && blog.keywords.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {blog.keywords.map((tag: string) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-full border border-blue-100"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <span className="text-sm text-gray-500 whitespace-nowrap pt-1">
                       {formatDate(blog.date)} · {count(blog.content)} 字
                     </span>
                   </div>
-                  <p className="text-gray-600 line-clamp-2">
+                  <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed text-justify">
                     {blog.summary}
                   </p>
                 </div>

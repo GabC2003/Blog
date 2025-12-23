@@ -19,18 +19,18 @@ import 'katex/dist/katex.min.css';
 import { config } from "@/lib/config";
 
 type BlogsPageProps = {
-  params: Promise<{slug: string[]}>
+  params: Promise<{ slug: string[] }>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 const options = {
   mdxOptions: {
-      remarkPlugins: [remarkGfm, remarkMath],
-      rehypePlugins: [
-        rehypeKatex,
-        rehypeHighlight,
-        rehypeSlug
-      ],
+    remarkPlugins: [remarkGfm, remarkMath],
+    rehypePlugins: [
+      rehypeKatex,
+      rehypeHighlight,
+      rehypeSlug
+    ],
   }
 }
 
@@ -106,10 +106,22 @@ export default async function BlogPage(props: BlogsPageProps) {
           <h1 className="text-[32px] font-bold">{blog.title}</h1>
         </div>
 
-        <div className="my-4">
-          <p className="text-sm">
+        <div className="my-4 space-y-3">
+          <p className="text-sm text-gray-500">
             {formatDate(blog.date)} · {count(blog.content)} 字
           </p>
+          {blog.keywords && blog.keywords.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {blog.keywords.map((tag: string) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-full border border-blue-100"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="">
