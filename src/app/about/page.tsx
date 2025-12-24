@@ -48,7 +48,7 @@ export default function AboutPage() {
                     </h2>
                     <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed text-lg">
                         <p>
-                            Tech enthusiast,Foodie,TSLA investor.
+                            ISFJ/不爱内卷竞争/科技爱好者/喜欢大自然
                         </p>
                     </div>
                 </section>
