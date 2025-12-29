@@ -35,7 +35,7 @@ const components = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        "font-heading mt-8 mb-8 scroll-m-20 text-[1.2rem] leading-[2rem] font-semibold tracking-tight",
+        "font-heading mt-8 mb-8 scroll-m-20 text-[1.3rem] leading-[2rem] font-semibold tracking-tight",
         className
       )}
       {...props}
@@ -44,7 +44,7 @@ const components = {
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
       className={cn(
-        "font-heading mt-8 mb-8 scroll-m-20 text-[1rem] leading-[1.8rem] font-semibold tracking-tight",
+        "font-heading mt-8 mb-8 scroll-m-20 text-[1.2rem] leading-[1.8rem] font-semibold tracking-tight",
         className
       )}
       {...props}
@@ -53,7 +53,7 @@ const components = {
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        "font-heading mt-8 mb-8 scroll-m-20 text-[0.8rem] leading-[1.6rem] font-semibold tracking-tight",
+        "font-heading mt-8 mb-8 scroll-m-20 text-[1.1rem] leading-[1.6rem] font-semibold tracking-tight",
         className
       )}
       {...props}

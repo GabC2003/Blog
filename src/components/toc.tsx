@@ -17,10 +17,10 @@ export function DashboardTableOfContents({ toc }: TocProps) {
     () =>
       toc.items
         ? toc.items
-            .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
-            .flat()
-            .filter(Boolean)
-            .map((id) => id?.split("#")[1])
+          .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
+          .flat()
+          .filter(Boolean)
+          .map((id) => id?.split("#")[1])
         : [],
     [toc]
   )
@@ -80,7 +80,7 @@ interface TreeProps {
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  return tree?.items?.length && level < 3 ? (
+  return tree?.items?.length && level < 6 ? (
     <ul className={cn("m-2 list-none", { "pl-4": level !== 1 })}>
       {tree.items.map((item, index) => {
         return (

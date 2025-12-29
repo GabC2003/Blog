@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 def main():
     """Main function to run the migration process."""
-    # Use provided regex or default to matching markdown images in the 'blog/' folder
-    regex_pattern = sys.argv[1] if len(sys.argv) > 1 else r"!\[(.*?)\]\((blog/.*?\.png)\)"
+    # Use provided regex or default to matching markdown images (png/jpg/jpeg)
+    regex_pattern = sys.argv[1] if len(sys.argv) > 1 else r"!\[(.*?)\]\((.*?\.png)\)"
     
     load_dotenv() # Load variables from .env
     
@@ -51,7 +51,15 @@ def main():
 
         updated_content = content
         for alt_text, local_path in matches:
+            # Check direct path first
             local_file_system_path = os.path.join(local_image_root, local_path.lstrip('/'))
+            
+            # If not found, try adding 'blog/' prefix (common pattern)
+            if not os.path.exists(local_file_system_path):
+                 potential_path = os.path.join(local_image_root, "blog", local_path.lstrip('/'))
+                 if os.path.exists(potential_path):
+                     local_file_system_path = potential_path
+            
             if not os.path.exists(local_file_system_path):
                 print(f"  ! Warning: Image file not found: {local_file_system_path}")
                 continue
