@@ -1,9 +1,8 @@
 import { allBlogs } from "content-collections"
 import type { Metadata } from "next"
+import Link from "next/link"
 import { absoluteUrl, formatDate } from "@/lib/utils"
 import { notFound } from "next/navigation"
-import { getTableOfContents } from "@/lib/toc"
-import { DashboardTableOfContents } from "@/components/toc"
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
 import count from 'word-count'
 import { components } from "@/components/mdx-components"
@@ -14,7 +13,6 @@ import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import 'highlight.js/styles/github-dark.min.css'
 import GiscusComments from "@/components/giscus-comments"
-import { GoToTop } from "@/components/go-to-top"
 import 'katex/dist/katex.min.css';
 import { config } from "@/lib/config";
 
@@ -42,7 +40,7 @@ async function getBlogsFromParams(slugs: string[]) {
     return null
   }
 
-  return blog
+  return blog as unknown as { slug: string; title: string; content: string; date: string; keywords?: string[] }
 }
 
 export async function generateMetadata({ params }: BlogsPageProps): Promise<Metadata> {
@@ -97,45 +95,39 @@ export default async function BlogPage(props: BlogsPageProps) {
     notFound()
   }
 
-  const toc = await getTableOfContents(blog.content)
-
   return (
-    <main className="relative py-6 max-w-full md:max-w-6xl mx-auto lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
-      <div className="max-w-4xl mx-auto w-full px-6">
-        <div className="my-8">
-          <h1 className="text-[32px] font-bold">{blog.title}</h1>
+    <main className="relative py-4 max-w-5xl mx-auto">
+      <div className="w-full px-2">
+        {/* Back link */}
+        <Link 
+          href="/blog"
+          className="text-[#828282] text-sm hover:underline mb-4 inline-block"
+        >
+          &lt; back to blogs
+        </Link>
+
+        <div className="mb-4">
+          <h1 className="text-xl font-medium text-black">{blog.title}</h1>
         </div>
 
-        <div className="my-4 space-y-3">
-          <p className="text-sm text-gray-500">
-            {formatDate(blog.date)} · {count(blog.content)} 字
-          </p>
+        <div className="mb-6 text-[#828282] text-xs">
+          <span>{formatDate(blog.date)}</span>
+          <span className="mx-1">·</span>
+          <span>{count(blog.content)} 字</span>
           {blog.keywords && blog.keywords.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {blog.keywords.map((tag: string) => (
-                <span
-                  key={tag}
-                  className="px-2.5 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-full border border-blue-100"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
+            <>
+              <span className="mx-1">·</span>
+              <span>{blog.keywords.join(', ')}</span>
+            </>
           )}
         </div>
 
-        <div className="">
+        <div className="prose prose-sm max-w-none">
           <MDXRemote source={blog.content} components={components} options={options} />
         </div>
 
-        <GiscusComments />
-      </div>
-      <div className="hidden text-sm xl:block">
-        <div className="sticky top-16 -mt-6 h-[calc(100vh-3.5rem)]">
-          <div className="h-full overflow-auto pb-10 flex flex-col justify-between mt-16 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-            <DashboardTableOfContents toc={toc} />
-            <GoToTop />
-          </div>
+        <div className="mt-8 pt-4 border-t border-[#e5e5e5]">
+          <GiscusComments />
         </div>
       </div>
     </main>

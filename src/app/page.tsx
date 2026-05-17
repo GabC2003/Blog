@@ -6,81 +6,58 @@ import { formatDate } from "@/lib/utils";
 
 export default function Home() {
   const blogs = allBlogs
-    .filter((blog: any) => blog.featured === true)
     .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const socialLinks = [
-    { name: "赞赏", key: "buyMeACoffee" },
-    { name: "X", key: "x" },
-    { name: "小红书", key: "xiaohongshu" },
-    { name: "微信公众号", key: "wechat" },
-  ]
-    .map(item => ({
-      name: item.name,
-      href: config.social && config.social[item.key as keyof typeof config.social]
-    }))
-    .filter(link => !!link.href);
-
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      {/* 个人介绍部分 */}
-      <div className="mb-16 space-y-4">
-        <h1 className="text-4xl font-bold">{config.site.title}</h1>
-        <p className="text-md text-gray-600">{config.author.bio}</p>
-
-        {/* 社交链接 - 仅当有链接时才显示 */}
-        {socialLinks.length > 0 && (
-          <div className="flex space-x-2 text-gray-600">
-            {socialLinks.map((link, index) => (
-              <div key={link.name} className="flex items-center">
-                {index > 0 && <span className="mx-1">·</span>}
-                <Link href={link.href} className="underline underline-offset-4">
-                  {link.name}
+    <main className="max-w-5xl mx-auto px-2 py-2">
+      <ol className="list-none">
+        {blogs.map((blog: any, index: number) => (
+          <li key={blog.slug} className="flex items-start gap-2 py-1">
+            {/* 序号 */}
+            <span className="text-[#828282] text-sm w-6 text-right flex-shrink-0 pt-0.5">
+              {index + 1}.
+            </span>
+            
+            {/* 投票三角 */}
+            <span className="text-[#828282] text-xs flex-shrink-0 pt-1 cursor-pointer hover:text-[#ff6600]">
+              ▲
+            </span>
+            
+            {/* 内容 */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <Link 
+                  href={`/blog/${blog.slug}`}
+                  className="text-black text-sm hover:underline visited:text-[#828282]"
+                >
+                  {blog.title}
+                </Link>
+                {blog.keywords && blog.keywords.length > 0 && (
+                  <span className="text-[#828282] text-xs">
+                    ({blog.keywords[0]})
+                  </span>
+                )}
+              </div>
+              <div className="text-[#828282] text-xs mt-0.5">
+                {count(blog.content)} 字 · {formatDate(blog.date)} · 
+                <Link href={`/blog/${blog.slug}`} className="hover:underline ml-1">
+                  discuss
                 </Link>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          </li>
+        ))}
+      </ol>
+      
+      {/* 分页提示 */}
+      <div className="mt-4 pl-8">
+        <Link 
+          href="/blog" 
+          className="text-[#828282] text-sm hover:underline"
+        >
+          More
+        </Link>
       </div>
-
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold mb-8">推荐阅读</h2>
-        <div className="space-y-8">
-          {blogs.map((blog: any) => (
-            <article key={blog.slug} className="group">
-              <Link href={`/blog/${blog.slug}`}>
-                <div className="flex flex-col space-y-3">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-1">
-                      <h2 className="text-xl font-bold group-hover:text-blue-600 transition-colors underline underline-offset-4 decoration-current">
-                        {blog.title}
-                      </h2>
-                      {blog.keywords && blog.keywords.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {blog.keywords.map((tag: string) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-full border border-blue-100"
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <span className="text-sm text-gray-500 whitespace-nowrap pt-1">
-                      {formatDate(blog.date)} · {count(blog.content)} 字
-                    </span>
-                  </div>
-                  <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed text-justify">
-                    {blog.summary}
-                  </p>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
+    </main>
   );
 }

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   keywords: `${config.site.title}, blogs, ${config.site.title} blogs, nextjs blog template`,
 };
 
-const POSTS_PER_PAGE = 5;
+const POSTS_PER_PAGE = 10;
 
 export default async function BlogPage({
   searchParams,
@@ -31,107 +31,73 @@ export default async function BlogPage({
     currentPage * POSTS_PER_PAGE
   );
 
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="space-y-12">
-        {/* Intro Section */}
-        <section className="pb-10 border-b border-slate-100 mb-8 space-y-6">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">
-              Blog
-            </h1>
-            <p className="text-lg text-slate-600 max-w-2xl leading-relaxed">
-              {config.author.bio}
-            </p>
-          </div>
-          <Link
-            href="/about"
-            className="inline-flex items-center space-x-2 text-blue-600 font-medium hover:text-blue-700 transition-colors group"
-          >
-            <span>更多关于我</span>
-            <svg
-              className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </section>
-
-        <div className="space-y-8">
-          {blogs.map((blog: any) => (
-            <article key={blog.slug} className="group">
-              <Link href={`/blog/${blog.slug}`}>
-                <div className="flex flex-col space-y-3">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-1">
-                      <h2 className="text-xl font-bold group-hover:text-blue-600 transition-colors underline underline-offset-4 decoration-current">
-                        {blog.title}
-                      </h2>
-                      {blog.keywords && blog.keywords.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {blog.keywords.map((tag: string) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-full border border-blue-100"
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <span className="text-sm text-gray-500 whitespace-nowrap pt-1">
-                      {formatDate(blog.date)} · {count(blog.content)} 字
-                    </span>
-                  </div>
-                  <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed text-justify">
-                    {blog.summary}
-                  </p>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <nav className="flex items-center justify-center space-x-2 pt-8 border-t border-gray-100">
-            {currentPage > 1 && (
-              <Link
-                href={`/blog?page=${currentPage - 1}`}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-              >
-                上一页
-              </Link>
-            )}
-
-            <div className="flex items-center space-x-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                <Link
-                  key={pageNum}
-                  href={`/blog?page=${pageNum}`}
-                  className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${currentPage === pageNum
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
-                    }`}
+    <main className="max-w-5xl mx-auto px-2 py-2">
+      <ol className="list-none" start={startIndex + 1}>
+        {blogs.map((blog: any, index: number) => (
+          <li key={blog.slug} className="flex items-start gap-2 py-1">
+            {/* 序号 */}
+            <span className="text-[#828282] text-sm w-6 text-right flex-shrink-0 pt-0.5">
+              {startIndex + index + 1}.
+            </span>
+            
+            {/* 投票三角 */}
+            <span className="text-[#828282] text-xs flex-shrink-0 pt-1 cursor-pointer hover:text-[#ff6600]">
+              ▲
+            </span>
+            
+            {/* 内容 */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <Link 
+                  href={`/blog/${blog.slug}`}
+                  className="text-black text-sm hover:underline visited:text-[#828282]"
                 >
-                  {pageNum}
+                  {blog.title}
                 </Link>
-              ))}
+                {blog.keywords && blog.keywords.length > 0 && (
+                  <span className="text-[#828282] text-xs">
+                    ({blog.keywords[0]})
+                  </span>
+                )}
+              </div>
+              <div className="text-[#828282] text-xs mt-0.5">
+                {count(blog.content)} 字 · {formatDate(blog.date)} · 
+                <Link href={`/blog/${blog.slug}`} className="hover:underline ml-1">
+                  discuss
+                </Link>
+              </div>
             </div>
+          </li>
+        ))}
+      </ol>
 
-            {currentPage < totalPages && (
-              <Link
-                href={`/blog?page=${currentPage + 1}`}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-              >
-                下一页
-              </Link>
-            )}
-          </nav>
-        )}
-      </div>
-    </div>
+      {/* Pagination - HN Style */}
+      {totalPages > 1 && (
+        <div className="mt-4 pl-8 flex items-center gap-2 text-sm">
+          {currentPage > 1 && (
+            <Link
+              href={`/blog?page=${currentPage - 1}`}
+              className="text-[#828282] hover:underline"
+            >
+              &lt; prev
+            </Link>
+          )}
+          <span className="text-[#828282]">
+            {currentPage}/{totalPages}
+          </span>
+          {currentPage < totalPages && (
+            <Link
+              href={`/blog?page=${currentPage + 1}`}
+              className="text-[#828282] hover:underline"
+            >
+              more &gt;
+            </Link>
+          )}
+        </div>
+      )}
+    </main>
   );
 }

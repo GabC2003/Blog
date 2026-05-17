@@ -1,63 +1,67 @@
 "use client";
 
 import Link from "next/link";
-import { NavDesktopMenu } from "./nav-desktop-menu";
-import { NavMobileMenu } from "./nav-mobile-menu";
-import GithubIcon from "@/components/icons/github";
-import XiaohongshuIcon from "@/components/icons/xiaohongshu";
-import XIcon from "@/components/icons/x";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { SquareTerminal } from "lucide-react";
 import { config } from "@/lib/config";
 
 export function Header() {
   const pathname = usePathname();
-  const isBlogPage = pathname.includes("/blog/");
 
-  const socialLinks = [
-    { title: "Github", key: "github", icon: <GithubIcon /> },
-    { title: "X", key: "x", icon: <XIcon /> },
-    { title: "Xiaohongshu", key: "xiaohongshu", icon: <XiaohongshuIcon /> },
-  ]
-    .map(item => ({
-      title: item.title,
-      href: config.social && config.social[item.key as keyof typeof config.social],
-      icon: item.icon
-    }))
-    .filter(link => !!link.href);
+  const navLinks = [
+    { title: "about", href: "/about" },
+    { title: "blogs", href: "/blog" },
+  ];
 
   return (
-    <header className="pt-4">
-      <motion.div
-        initial={{ maxWidth: "48rem" }}
-        animate={{ maxWidth: isBlogPage ? "72rem" : "48rem" }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className={cn("container mx-auto flex h-16 items-center justify-between md:px-4", isBlogPage ? "max-w-4xl xl:max-w-6xl" : "max-w-3xl")}
-      >
-        {/* Mobile navigation */}
-        <NavMobileMenu />
-
-        {/* Logo */}
-        <Link href="/" title="Home" className="flex items-center gap-4 md:order-first">
-          <SquareTerminal className="w-10 h-10" />
-        </Link>
-
-        {/* Desktop navigation */}
-        <div className="hidden md:block">
-          <NavDesktopMenu />
-        </div>
-
-        {/* Right side buttons */}
-        <div className="flex items-center space-x-2 md:space-x-8 mr-4">
-          {socialLinks.map((link) => (
-            <Link key={link.title} href={link.href} title={link.title}>
-              {link.icon}
+    <header className="bg-[#ff6600]">
+      <div className="max-w-5xl mx-auto px-2 py-0.5">
+        <div className="flex items-center justify-between text-sm">
+          {/* Left: Logo and Navigation */}
+          <div className="flex items-center gap-2">
+            {/* Logo */}
+            <Link 
+              href="/" 
+              className="flex items-center gap-1.5 text-black hover:no-underline"
+            >
+              <span className="border border-white px-1 font-bold text-sm">G</span>
+              <span className="font-bold">Gabriel&apos;s Blog</span>
             </Link>
-          ))}
+
+            {/* Navigation Links */}
+            <nav className="flex items-center gap-1 ml-2">
+              {navLinks.map((link, index) => (
+                <span key={link.href} className="flex items-center">
+                  {index > 0 && <span className="mx-1 text-black">|</span>}
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "text-black hover:underline",
+                      pathname === link.href && "font-medium"
+                    )}
+                  >
+                    {link.title}
+                  </Link>
+                </span>
+              ))}
+            </nav>
+          </div>
+
+          {/* Right: Social Links */}
+          <div className="flex items-center gap-3">
+            {config.social?.github && (
+              <Link 
+                href={config.social.github} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-black hover:underline"
+              >
+                github
+              </Link>
+            )}
+          </div>
         </div>
-      </motion.div>
-    </header >
+      </div>
+    </header>
   );
 }

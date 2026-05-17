@@ -44,22 +44,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.1.0/style.css" />
-        <style>
-          {`
-            body {
-              font-family: "LXGW WenKai Lite", sans-serif;
-            }
-          `}
-        </style>
         <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
         <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom.xml" />
         <link rel="alternate" type="application/json" title="JSON" href="/feed.json" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="min-w-md overflow-x-hidden">
+      <body className="min-w-md overflow-x-hidden font-sans">
         <Header />
         {children}
       </body>
